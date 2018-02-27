@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Discord Voice Prompter
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.0
 // @description  Adds a prompt when trying to enter a voice channel
 // @author       RB
 // @match        https://discordapp.com/*
@@ -37,6 +37,7 @@ function addObscurity() {
 //Puts click events to call addObscurity on everything else that needs it within a guild itself
 function setUpGuild() {
     addObscurity();
+    console.log("what?");
     //Handles category dropdowns
     if (document.getElementsByClassName("containerDefault-1bbItS")[0]){
         var categorylist = document.getElementsByClassName("containerDefault-1bbItS");
@@ -53,6 +54,7 @@ window.addEventListener("load", function(){setTimeout(function() {
     if (document.getElementsByClassName('guild')[0]){
         setUpGuild();
         var guildlist = document.getElementsByClassName("guild");
+        console.log(guildlist);
         for (let i = 0; i < guildlist.length; i++) {
             guildlist[i].addEventListener("click", function(){setTimeout(function(){
                 if (document.getElementsByClassName("wrapperDefaultVoice-2ud9mj")[0]){
