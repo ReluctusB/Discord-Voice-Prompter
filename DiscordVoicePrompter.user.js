@@ -17,8 +17,7 @@ function askNicely(chat) {
     }
 }
 
-function addListeners() {
-    if (document.getElementsByTagName('textarea')[0]){
+function addObscurity() {
         var chatlist = document.getElementsByClassName("wrapperDefaultVoice-2ud9mj");
         for (var i = 0; i < chatlist.length; i++) {
             chatlist[i].classList.add("voice");
@@ -31,10 +30,12 @@ function addListeners() {
             cover.addEventListener("click",function(){askNicely(this.nextElementSibling);});
             chatlist[i].parentElement.insertBefore(cover, chatlist[i]);
         }
-    }else{
-        setTimeout(addListeners,1000);
-    }
 }
 
-window.addEventListener("load", addListeners, false);
-window.addEventListener("click", addListeners, false);
+window.addEventListener("load", function a() {
+    if (document.getElementsByTagName('textarea')[0]){
+        addObscurity();
+    }else{
+        setTimeout(a,1000);}
+});
+window.addEventListener("click", addObscurity, false);
