@@ -36,7 +36,9 @@ function addObscurity() {
 
 //Puts click events to call addObscurity on everything else that needs it within a guild itself
 function setUpGuild() {
-    addObscurity();
+    if (document.getElementsByClassName("wrapperDefaultVoice-2ud9mj")[0]){
+        addObscurity();
+    }
     console.log("what?");
     //Handles category dropdowns
     if (document.getElementsByClassName("containerDefault-1bbItS")[0]){
@@ -56,10 +58,7 @@ window.addEventListener("load", function(){setTimeout(function() {
         var guildlist = document.getElementsByClassName("guild");
         console.log(guildlist);
         for (let i = 0; i < guildlist.length; i++) {
-            guildlist[i].addEventListener("click", function(){setTimeout(function(){
-                if (document.getElementsByClassName("wrapperDefaultVoice-2ud9mj")[0]){
-                setUpGuild();}
-            },150);});
+            guildlist[i].addEventListener("click", function(){setTimeout(function(){setUpGuild();},150);});
         }
     }
 },1000);});
