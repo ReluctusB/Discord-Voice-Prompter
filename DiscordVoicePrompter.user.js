@@ -21,7 +21,6 @@ function askNicely(chat) {
 //Covers voice chat channels with 'obscurers' that call askNicely when clicked.
 function addObscurity() {
     var chatlist = document.getElementsByClassName("wrapperDefaultVoice-2ud9mj");
-    console.log(chatlist);
     for (let i = 0; i < chatlist.length; i++) {
         var cover = document.createElement("DIV");
         cover.style.height = "34px";
@@ -39,7 +38,6 @@ function setUpGuild() {
     if (document.getElementsByClassName("wrapperDefaultVoice-2ud9mj")[0]){
         addObscurity();
     }
-    console.log("what?");
     //Handles category dropdowns
     if (document.getElementsByClassName("containerDefault-1bbItS")[0]){
         var categorylist = document.getElementsByClassName("containerDefault-1bbItS");
@@ -56,7 +54,6 @@ window.addEventListener("load", function(){setTimeout(function() {
     if (document.getElementsByClassName('guild')[0]){
         setUpGuild();
         var guildlist = document.getElementsByClassName("guild");
-        console.log(guildlist);
         for (let i = 0; i < guildlist.length; i++) {
             guildlist[i].addEventListener("click", function(){setTimeout(function(){setUpGuild();},150);});
         }
