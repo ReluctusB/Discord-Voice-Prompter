@@ -11,11 +11,64 @@
 // @downloadURL  https://raw.githubusercontent.com/ReluctusB/Discord-Voice-Prompter/master/DiscordVoicePrompter.user.js
 // ==/UserScript==
 
-//Initiates prompt, simulates a click event on chat is prompt is accepted.
+function createPopupConfirm(title,text,obj,funct) {
+    var backdrop = document.createElement("DIV");
+    backdrop.className = "backdrop-2ohBEd";
+    backdrop.style.opacity = ".85";
+    backdrop.style.backgroundColor = "rgb(0, 0, 0)";
+    backdrop.style.transform = "translateZ(0px)";
+    var appFront = document.getElementById('app-mount');
+    appFront.lastChild.appendChild(backdrop);
+    var popupDiv = document.createElement("DIV");
+    popupDiv.className = "modal-2LIEKY";
+    popupDiv.style.opacity = "1";
+    popupDiv.style.transform = "scale(1) translateZ(0px)";
+    appFront.lastChild.appendChild(popupDiv);
+    var inner = document.createElement("DIV");
+    inner.className = "inner-1_1f7b";
+    popupDiv.appendChild(inner);
+    var popup = document.createElement("DIV");
+    popup.className = "modal-3HOjGZ sizeSmall-1sh0-r";
+    popup.id="woop";
+    inner.appendChild(popup);
+    var headTitle = document.createElement("DIV");
+    headTitle.className = "flex-lFgbSz flex-3B1Tl4 horizontal-2BEEBe horizontal-2VE-Fw flex-3B1Tl4 directionRow-yNbSvJ justifyStart-2yIZo0 alignCenter-3VxkQP noWrap-v6g9vO header-3sp3cE";
+    headTitle.style.flex = "flex: 0 0 auto";
+    popup.appendChild(headTitle);
+    var headTitleTitle = document.createElement("H4");
+    headTitleTitle.className = "h4-2IXpeI title-1pmpPr size16-3IvaX_ height20-165WbF weightSemiBold-T8sxWH defaultColor-v22dK1 defaultMarginh4-jAopYe marginReset-3hwONl";
+    headTitleTitle.innerText = title;
+    headTitle.appendChild(headTitleTitle);
+    var mainText = document.createElement("DIV");
+    mainText.className="message-3gHzqQ marginBottom20-2Ifj-2 medium-2KnC-N size16-3IvaX_ height20-165WbF primary-2giqSn";
+    mainText.style.padding="20px";
+    mainText.innerText=text;
+    popup.appendChild(mainText);
+    var footDiv = document.createElement("DIV");
+    footDiv.className = "flex-lFgbSz flex-3B1Tl4 horizontalReverse-2LanvO horizontalReverse-k5PqxT flex-3B1Tl4 directionRowReverse-2eZTxP justifyStart-2yIZo0 alignStretch-1hwxMa noWrap-v6g9vO footer-1PYmcw";
+    footDiv.style.flex = "flex: 0 0 auto";
+    popup.appendChild(footDiv);
+    var accept = document.createElement("Button");
+    accept.className = "buttonSpacing-3R7DSg button-2t3of8 lookFilled-luDKDo colorBrand-3PmwCE sizeMedium-2VGNaF grow-25YQ8u";
+    accept.innerText = "Let's go!";
+    accept.addEventListener("click",function(){clearPopup();funct(obj);});
+    footDiv.appendChild(accept);
+    var deny = document.createElement("Button");
+    deny.className = "buttonSpacing-3R7DSg button-2t3of8 lookGhost-GyT-k0 colorBrand-3PmwCE sizeMedium-2VGNaF grow-25YQ8u";
+    deny.innerText = "No thanks";
+    deny.addEventListener("click",clearPopup);
+    footDiv.appendChild(deny);
+    //funct(obj);
+}
+
+function clearPopup() {
+    var appFront = document.getElementById('app-mount');
+    appFront.lastChild.innerHTML="";
+}
+
+//Initiates prompt, simulates a click event on chat if prompt is accepted.
 function askNicely(chat) {
-    if(window.confirm("Join voice chat?")) {
-        chat.click();
-    }
+    chat.click();
 }
 
 //Covers voice chat channels with 'obscurers' that call askNicely when clicked.
@@ -27,8 +80,9 @@ function addObscurity() {
         cover.style.width = "100%";
         cover.style.zIndex = 100;
         cover.style.position="absolute";
+        cover.style.cursor="pointer";
         cover.id = i.toString();
-        cover.addEventListener("click",function(){askNicely(this.nextElementSibling);});
+        cover.addEventListener("click",function(){createPopupConfirm("Entering Voice Chat","Do you want to enter this channel?",this.nextElementSibling,askNicely);});
         chatlist[i].parentElement.insertBefore(cover, chatlist[i]);
     }
 }
