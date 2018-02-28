@@ -27,6 +27,7 @@ function addObscurity() {
         cover.style.width = "100%";
         cover.style.zIndex = 100;
         cover.style.position="absolute";
+        cover.style.cursor="pointer";
         cover.id = i.toString();
         cover.addEventListener("click",function(){askNicely(this.nextElementSibling);});
         chatlist[i].parentElement.insertBefore(cover, chatlist[i]);
