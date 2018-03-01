@@ -11,19 +11,21 @@
 // @downloadURL  https://raw.githubusercontent.com/ReluctusB/Discord-Voice-Prompter/master/DiscordVoicePrompter.user.js
 // ==/UserScript==
 
+//Creates a Discord-styled popup confirmation box.
 function createPopupConfirm(title,text,obj,funct) {
+    var frag = document.createDocumentFragment();
     var backdrop = document.createElement("DIV");
     backdrop.className = "backdrop-2ohBEd";
     backdrop.style.opacity = ".85";
     backdrop.style.backgroundColor = "rgb(0, 0, 0)";
     backdrop.style.transform = "translateZ(0px)";
-    var appFront = document.getElementById('app-mount');
-    appFront.lastChild.appendChild(backdrop);
+    backdrop.addEventListener("click", clearPopup);
+    frag.appendChild(backdrop);
     var popupDiv = document.createElement("DIV");
     popupDiv.className = "modal-2LIEKY";
     popupDiv.style.opacity = "1";
     popupDiv.style.transform = "scale(1) translateZ(0px)";
-    appFront.lastChild.appendChild(popupDiv);
+    frag.appendChild(popupDiv);
     var inner = document.createElement("DIV");
     inner.className = "inner-1_1f7b";
     popupDiv.appendChild(inner);
@@ -58,7 +60,9 @@ function createPopupConfirm(title,text,obj,funct) {
     deny.innerText = "No thanks";
     deny.addEventListener("click",clearPopup);
     footDiv.appendChild(deny);
-    //funct(obj);
+
+    var appFront = document.getElementById('app-mount');
+    appFront.lastChild.appendChild(frag);
 }
 
 function clearPopup() {
@@ -82,7 +86,7 @@ function addObscurity() {
         cover.style.position="absolute";
         cover.style.cursor="pointer";
         cover.id = i.toString();
-        cover.addEventListener("click",function(){createPopupConfirm("Entering Voice Chat","Do you want to enter this channel?",this.nextElementSibling,askNicely);});
+        cover.addEventListener("click",function(){createPopupConfirm("Now entering "+this.nextElementSibling.getElementsByClassName("nameDefaultVoice-1swZoh")[0].innerText,"Do you want to enter this channel?",this.nextElementSibling,askNicely);});
         chatlist[i].parentElement.insertBefore(cover, chatlist[i]);
     }
 }
