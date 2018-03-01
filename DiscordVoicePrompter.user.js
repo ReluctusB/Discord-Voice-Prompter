@@ -80,15 +80,19 @@ function askNicely(chat) {
 function addObscurity() {
     var chatlist = document.getElementsByClassName("wrapperDefaultVoice-2ud9mj");
     for (let i = 0; i < chatlist.length; i++) {
-        var cover = document.createElement("DIV");
-        cover.style.height = "34px";
-        cover.style.width = "100%";
-        cover.style.zIndex = 100;
-        cover.style.position="absolute";
-        cover.style.cursor="pointer";
-        cover.id = i.toString();
-        cover.addEventListener("click",function(){createPopupConfirm("Now entering "+this.nextElementSibling.getElementsByClassName("nameDefaultVoice-1swZoh")[0].innerText,"Do you want to enter this channel?",this.nextElementSibling,askNicely);});
-        chatlist[i].parentElement.insertBefore(cover, chatlist[i]);
+        if (!chatlist[i].previousSibling){
+            var cover = document.createElement("DIV");
+            cover.style.height = "34px";
+            cover.style.width = "100%";
+            cover.style.zIndex = 100;
+            cover.style.position="absolute";
+            cover.style.cursor="pointer";
+            cover.id = i.toString();
+            cover.addEventListener("click",function(){createPopupConfirm("Now entering "+this.nextElementSibling.getElementsByClassName("nameDefaultVoice-1swZoh")[0].innerText,"Do you want to enter this channel?",this.nextElementSibling,askNicely);});
+            cover.addEventListener("mousedown", function(event){if(event.button===2){this.style.display="none";}});
+            chatlist[i].addEventListener("mouseup",function(event){if(event.button===2){let obj=this; setTimeout(function(){obj.previousSibling.style.display="block";},1);}});
+            chatlist[i].parentElement.insertBefore(cover, chatlist[i]);
+        }
     }
 }
 
