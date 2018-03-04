@@ -88,7 +88,7 @@ function addObscurity() {
             cover.style.position="absolute";
             cover.style.cursor="pointer";
             cover.id = i.toString();
-            cover.addEventListener("click",function(){createPopupConfirm("Now entering "+this.nextElementSibling.getElementsByClassName("nameDefaultVoice-1swZoh")[0].innerText,"Do you want to enter this channel?",this.nextElementSibling,askNicely);});
+            cover.addEventListener("click",function(){createPopupConfirm("Now entering: "+this.nextElementSibling.getElementsByClassName("nameDefaultVoice-1swZoh")[0].innerText,"Do you want to enter this channel?",this.nextElementSibling,askNicely);});
             cover.addEventListener("mousedown", function(event){if(event.button===2){this.style.display="none";}});
             chatlist[i].addEventListener("mouseup",function(event){if(event.button===2){let obj=this; setTimeout(function(){obj.previousSibling.style.display="block";},1);}});
             chatlist[i].parentElement.insertBefore(cover, chatlist[i]);
