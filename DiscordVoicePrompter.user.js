@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Discord Voice Prompter
 // @namespace    http://tampermonkey.net/
-// @version      1.5.1
+// @version      1.6
 // @description  Adds a prompt when trying to enter a voice channel
 // @author       RB
 // @match        https://discordapp.com/*
@@ -31,7 +31,6 @@ function createPopupConfirm(title,text,obj,funct) {
     popupDiv.appendChild(inner);
     var popup = document.createElement("DIV");
     popup.className = "modal-3HOjGZ sizeSmall-1sh0-r";
-    popup.id="woop";
     inner.appendChild(popup);
     var headTitle = document.createElement("DIV");
     headTitle.className = "flex-lFgbSz flex-3B1Tl4 horizontal-2BEEBe horizontal-2VE-Fw flex-3B1Tl4 directionRow-yNbSvJ justifyStart-2yIZo0 alignCenter-3VxkQP noWrap-v6g9vO header-3sp3cE";
@@ -125,14 +124,17 @@ function setUpGuild() {
 }
 
 //Calls initial setUpGuild and adds click events to call setUpGuild on guilds.
-window.addEventListener("load", function a() {
+window.addEventListener("load", function loadLoop() {
     if (document.getElementsByClassName('guild')[1]){
         setUpGuild();
-        var guildlist = document.getElementsByClassName("guild");
-        for (let i = 0; i < guildlist.length; i++) {
-            guildlist[i].addEventListener("click", function(){setTimeout(function(){setUpGuild();},150);});
-        }
+        var buildGuild = function() {
+            document.getElementsByClassName("guilds")[0].addEventListener("click",function(){
+                setTimeout(setUpGuild,150);
+            });
+        };
+        buildGuild();
+        document.getElementsByClassName("friends-icon")[0].addEventListener("click",function(){setTimeout(buildGuild,150);});
     } else {
-        setTimeout(a,1000);
+        setTimeout(loadLoop,1000);
     }
 });
