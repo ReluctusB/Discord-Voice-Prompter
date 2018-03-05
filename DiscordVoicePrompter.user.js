@@ -114,7 +114,7 @@ function setUpGuild() {
 
 //Calls initial setUpGuild and adds click events to call setUpGuild on guilds.
 window.addEventListener("load", function a() {
-    if (document.getElementsByClassName('guild')[0]){
+    if (document.getElementsByClassName('guild')[1]){
         setUpGuild();
         var guildlist = document.getElementsByClassName("guild");
         for (let i = 0; i < guildlist.length; i++) {
@@ -124,6 +124,3 @@ window.addEventListener("load", function a() {
         setTimeout(a,1000);
     }
 });
-
-
-
