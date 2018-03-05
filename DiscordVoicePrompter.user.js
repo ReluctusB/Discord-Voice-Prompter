@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Discord Voice Prompter
 // @namespace    http://tampermonkey.net/
-// @version      1.5
+// @version      1.5.1
 // @description  Adds a prompt when trying to enter a voice channel
 // @author       RB
 // @match        https://discordapp.com/*
@@ -31,7 +31,6 @@ function createPopupConfirm(title,text,obj,funct) {
     popupDiv.appendChild(inner);
     var popup = document.createElement("DIV");
     popup.className = "modal-3HOjGZ sizeSmall-1sh0-r";
-    popup.id="woop";
     inner.appendChild(popup);
     var headTitle = document.createElement("DIV");
     headTitle.className = "flex-lFgbSz flex-3B1Tl4 horizontal-2BEEBe horizontal-2VE-Fw flex-3B1Tl4 directionRow-yNbSvJ justifyStart-2yIZo0 alignCenter-3VxkQP noWrap-v6g9vO header-3sp3cE";
@@ -96,6 +95,14 @@ function addObscurity() {
     }
 }
 
+//Sets event listener on channel containers.
+function setUpContainers() {
+    var categorylist = document.getElementsByClassName("containerDefault-1bbItS");
+    for (let i = 0; i < categorylist.length; i++) {
+        categorylist[i].addEventListener("click", function(){setTimeout(addObscurity,150);}, false);
+    }
+}
+
 //Puts click events to call addObscurity on everything else that needs it within a guild itself
 function setUpGuild() {
     if (document.getElementsByClassName("wrapperDefaultVoice-2ud9mj")[0]||document.getElementsByClassName("wrapperHoveredVoice-3tbfNN")[0]){
@@ -103,17 +110,20 @@ function setUpGuild() {
     }
     //Handles category dropdowns
     if (document.getElementsByClassName("containerDefault-1bbItS")[0]){
-        var categorylist = document.getElementsByClassName("containerDefault-1bbItS");
-        for (let i = 0; i < categorylist.length; i++) {
-            categorylist[i].addEventListener("click", function(){setTimeout(addObscurity,150);}, false);
-        }
+        setUpContainers();
     }
     //Handles scrolling down a channel list
-    document.getElementsByClassName("scroller-fzNley")[0].addEventListener("scroll", function(){setTimeout(addObscurity,150);}, false);
+    var timer = null;
+    document.getElementsByClassName("scroller-fzNley")[0].addEventListener("scroll", function(){
+         if(timer !== null) {clearTimeout(timer);}
+         timer = setTimeout(function() {
+             setTimeout(addObscurity,150);
+             if (document.getElementsByClassName("containerDefault-1bbItS")[0]){setUpContainers();}
+         }, 150);
+    }, false);
 }
 
 //Calls initial setUpGuild and adds click events to call setUpGuild on guilds.
-
 window.addEventListener("load", function a() {
     if (document.getElementsByClassName('guild')[1]){
         setUpGuild();
