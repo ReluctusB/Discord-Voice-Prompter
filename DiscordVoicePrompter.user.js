@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Discord Voice Prompter
 // @namespace    http://tampermonkey.net/
-// @version      1.4
+// @version      1.5
 // @description  Adds a prompt when trying to enter a voice channel
 // @author       RB
 // @match        https://discordapp.com/*
@@ -78,7 +78,7 @@ function askNicely(chat) {
 
 //Covers voice chat channels with 'obscurers' that call create PopupConfirm when clicked.
 function addObscurity() {
-    var chatlist = document.getElementsByClassName("wrapperDefaultVoice-2ud9mj");
+    var chatlist = document.querySelectorAll(".wrapperDefaultVoice-2ud9mj, .wrapperHoveredVoice-3tbfNN");
     for (let i = 0; i < chatlist.length; i++) {
         if (!chatlist[i].previousSibling){
             var cover = document.createElement("DIV");
@@ -98,7 +98,7 @@ function addObscurity() {
 
 //Puts click events to call addObscurity on everything else that needs it within a guild itself
 function setUpGuild() {
-    if (document.getElementsByClassName("wrapperDefaultVoice-2ud9mj")[0]){
+    if (document.getElementsByClassName("wrapperDefaultVoice-2ud9mj")[0]||document.getElementsByClassName("wrapperHoveredVoice-3tbfNN")[0]){
         addObscurity();
     }
     //Handles category dropdowns
@@ -113,14 +113,17 @@ function setUpGuild() {
 }
 
 //Calls initial setUpGuild and adds click events to call setUpGuild on guilds.
-window.addEventListener("load", function(){setTimeout(function() {
-    if (document.getElementsByClassName('guild')[1]){
+window.addEventListener("load", function a() {
+    if (document.getElementsByClassName('guild')[0]){
         setUpGuild();
         var guildlist = document.getElementsByClassName("guild");
         for (let i = 0; i < guildlist.length; i++) {
             guildlist[i].addEventListener("click", function(){setTimeout(function(){setUpGuild();},150);});
         }
+    } else {
+        setTimeout(a,1000);
     }
-},1000);});
+});
+
 
 
