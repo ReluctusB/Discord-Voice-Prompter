@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Discord Voice Prompter
 // @namespace    http://tampermonkey.net/
-// @version      1.6
+// @version      1.6.1
 // @description  Adds a prompt when trying to enter a voice channel
 // @author       RB
 // @match        https://discordapp.com/*
@@ -15,47 +15,47 @@
 function createPopupConfirm(title,text,obj,funct) {
     var frag = document.createDocumentFragment();
     var backdrop = document.createElement("DIV");
-    backdrop.className = "backdrop-2ohBEd";
+    backdrop.className = "backdrop-1ocfXc";
     backdrop.style.opacity = ".85";
     backdrop.style.backgroundColor = "rgb(0, 0, 0)";
     backdrop.style.transform = "translateZ(0px)";
     backdrop.addEventListener("click", clearPopup);
     frag.appendChild(backdrop);
     var popupDiv = document.createElement("DIV");
-    popupDiv.className = "modal-2LIEKY";
+    popupDiv.className = "modal-1UGdnR";
     popupDiv.style.opacity = "1";
     popupDiv.style.transform = "scale(1) translateZ(0px)";
     frag.appendChild(popupDiv);
     var inner = document.createElement("DIV");
-    inner.className = "inner-1_1f7b";
+    inner.className = "inner-1JeGVc";
     popupDiv.appendChild(inner);
     var popup = document.createElement("DIV");
-    popup.className = "modal-3HOjGZ sizeSmall-1sh0-r";
+    popup.className = "modal-3HD5ck sizeSmall-Sf4iOi";
     inner.appendChild(popup);
     var headTitle = document.createElement("DIV");
-    headTitle.className = "flex-lFgbSz flex-3B1Tl4 horizontal-2BEEBe horizontal-2VE-Fw flex-3B1Tl4 directionRow-yNbSvJ justifyStart-2yIZo0 alignCenter-3VxkQP noWrap-v6g9vO header-3sp3cE";
+    headTitle.className = "flex-1xMQg5 flex-1O1GKY horizontal-1ae9ci horizontal-2EEEnY flex-1O1GKY directionRow-3v3tfG justifyStart-2NDFzi alignCenter-1dQNNs noWrap-3jynv6 header-1R_AjF";
     headTitle.style.flex = "flex: 0 0 auto";
     popup.appendChild(headTitle);
     var headTitleTitle = document.createElement("H4");
-    headTitleTitle.className = "h4-2IXpeI title-1pmpPr size16-3IvaX_ height20-165WbF weightSemiBold-T8sxWH defaultColor-v22dK1 defaultMarginh4-jAopYe marginReset-3hwONl";
+    headTitleTitle.className = "h4-AQvcAz title-3sZWYQ size16-14cGz5 height20-mO2eIN weightSemiBold-NJexzi defaultColor-1_ajX0 defaultMarginh4-2vWMG5 marginReset-236NPn";
     headTitleTitle.innerText = title;
     headTitle.appendChild(headTitleTitle);
     var mainText = document.createElement("DIV");
-    mainText.className="message-3gHzqQ marginBottom20-2Ifj-2 medium-2KnC-N size16-3IvaX_ height20-165WbF primary-2giqSn";
+    mainText.className="titleDefault-a8-ZSr title-31JmR4 marginReset-236NPn weightMedium-2iZe9B size16-14cGz5 height24-3XzeJx flexChild-faoVW3";
     mainText.style.padding="20px";
     mainText.innerText=text;
     popup.appendChild(mainText);
     var footDiv = document.createElement("DIV");
-    footDiv.className = "flex-lFgbSz flex-3B1Tl4 horizontalReverse-2LanvO horizontalReverse-k5PqxT flex-3B1Tl4 directionRowReverse-2eZTxP justifyStart-2yIZo0 alignStretch-1hwxMa noWrap-v6g9vO footer-1PYmcw";
+    footDiv.className = "flex-1xMQg5 flex-1O1GKY horizontalReverse-2eTKWD horizontalReverse-3tRjY7 flex-1O1GKY directionRowReverse-m8IjIq justifyStart-2NDFzi alignStretch-DpGPf3 noWrap-3jynv6 footer-2yfCgX";
     footDiv.style.flex = "flex: 0 0 auto";
     popup.appendChild(footDiv);
     var accept = document.createElement("Button");
-    accept.className = "buttonSpacing-3R7DSg button-2t3of8 lookFilled-luDKDo colorBrand-3PmwCE sizeMedium-2VGNaF grow-25YQ8u";
+    accept.className = "button-38aScr lookFilled-1Gx00P colorBrand-3pXr91 sizeMedium-1AC_Sl grow-q77ONN";
     accept.innerText = "Let's go!";
     accept.addEventListener("click",function(){clearPopup();funct(obj);});
     footDiv.appendChild(accept);
     var deny = document.createElement("Button");
-    deny.className = "buttonSpacing-3R7DSg button-2t3of8 lookGhost-GyT-k0 colorBrand-3PmwCE sizeMedium-2VGNaF grow-25YQ8u";
+    deny.className = "button-38aScr lookLink-9FtZy- colorGrey-2DXtkV sizeMedium-1AC_Sl grow-q77ONN";
     deny.innerText = "No thanks";
     deny.addEventListener("click",clearPopup);
     footDiv.appendChild(deny);
@@ -77,7 +77,7 @@ function askNicely(chat) {
 
 //Covers voice chat channels with 'obscurers' that call create PopupConfirm when clicked.
 function addObscurity() {
-    var chatlist = document.querySelectorAll(".wrapperDefaultVoice-2ud9mj, .wrapperHoveredVoice-3tbfNN");
+    var chatlist = document.querySelectorAll(".wrapperDefaultVoice-1yvceo, .wrapperHoveredVoice-3ItgyI");
     for (let i = 0; i < chatlist.length; i++) {
         if (!chatlist[i].previousSibling){
             var cover = document.createElement("DIV");
@@ -87,7 +87,7 @@ function addObscurity() {
             cover.style.position="absolute";
             cover.style.cursor="pointer";
             cover.id = i.toString();
-            cover.addEventListener("click",function(){createPopupConfirm("Now entering: "+this.nextElementSibling.getElementsByClassName("nameDefaultVoice-1swZoh")[0].innerText,"Do you want to enter this channel?",this.nextElementSibling,askNicely);});
+            cover.addEventListener("click",function(){createPopupConfirm("Now entering: "+this.nextElementSibling.getElementsByClassName("nameDefaultVoice-3WUH7s")[0].innerText,"Do you want to enter this channel?",this.nextElementSibling,askNicely);});
             cover.addEventListener("mousedown", function(event){if(event.button===2){this.style.display="none";}});
             chatlist[i].addEventListener("mouseup",function(event){if(event.button===2){let obj=this; setTimeout(function(){obj.previousSibling.style.display="block";},1);}});
             chatlist[i].parentElement.insertBefore(cover, chatlist[i]);
@@ -97,7 +97,7 @@ function addObscurity() {
 
 //Sets event listener on channel containers.
 function setUpContainers() {
-    var categorylist = document.getElementsByClassName("containerDefault-1bbItS");
+    var categorylist = document.getElementsByClassName("containerDefault-3GGEv_");
     for (let i = 0; i < categorylist.length; i++) {
         categorylist[i].addEventListener("click", function(){setTimeout(addObscurity,150);}, false);
     }
@@ -105,16 +105,16 @@ function setUpContainers() {
 
 //Puts click events to call addObscurity on everything else that needs it within a guild itself
 function setUpGuild() {
-    if (document.getElementsByClassName("wrapperDefaultVoice-2ud9mj")[0]||document.getElementsByClassName("wrapperHoveredVoice-3tbfNN")[0]){
+    if (document.getElementsByClassName("wrapperDefaultVoice-1yvceo")[0]||document.getElementsByClassName("wrapperHoveredVoice-3ItgyI")[0]){
         addObscurity();
     }
     //Handles category dropdowns
-    if (document.getElementsByClassName("containerDefault-1bbItS")[0]){
+    if (document.getElementsByClassName("containerDefault-3GGEv_")[0]){
         setUpContainers();
     }
     //Handles scrolling down a channel list
     var timer = null;
-    document.getElementsByClassName("scroller-fzNley")[0].addEventListener("scroll", function(){
+    document.getElementsByClassName("scroller-2FKFPG")[0].addEventListener("scroll", function(){
          if(timer !== null) {clearTimeout(timer);}
          timer = setTimeout(function() {
              setTimeout(addObscurity,150);
@@ -123,7 +123,7 @@ function setUpGuild() {
     }, false);
 }
 
-//Calls initial setUpGuild and adds click events to call setUpGuild on guilds.
+//Calls initial setUpGuild and adds click event to call setUpGuild on guilds.
 window.addEventListener("load", function loadLoop() {
     if (document.getElementsByClassName('guild')[1]){
         setUpGuild();
