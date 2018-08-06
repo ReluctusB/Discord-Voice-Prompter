@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Discord Voice Prompter
 // @namespace    http://tampermonkey.net/
-// @version      1.6.1
+// @version      1.6.2
 // @description  Adds a prompt when trying to enter a voice channel
 // @author       RB
 // @match        https://discordapp.com/*
@@ -15,7 +15,7 @@
 function createPopupConfirm(title,text,obj,funct) {
     var frag = document.createDocumentFragment();
     var backdrop = document.createElement("DIV");
-    backdrop.className = "backdrop-1ocfXc";
+    backdrop.className = "backdrop-1wrmKB";
     backdrop.style.opacity = ".85";
     backdrop.style.backgroundColor = "rgb(0, 0, 0)";
     backdrop.style.transform = "translateZ(0px)";
@@ -125,15 +125,15 @@ function setUpGuild() {
 
 //Calls initial setUpGuild and adds click event to call setUpGuild on guilds.
 window.addEventListener("load", function loadLoop() {
-    if (document.getElementsByClassName('guild')[1]){
+    if (document.getElementsByClassName('guild-1EfMGQ')[1]){
+        console.log("Help");
         setUpGuild();
         var buildGuild = function() {
-            document.getElementsByClassName("guilds")[0].addEventListener("click",function(){
+            document.getElementsByClassName("guilds-1q_RqH")[0].addEventListener("click",function(){
                 setTimeout(setUpGuild,150);
             });
         };
         buildGuild();
-        document.getElementsByClassName("friends-icon")[0].addEventListener("click",function(){setTimeout(buildGuild,150);});
     } else {
         setTimeout(loadLoop,1000);
     }
