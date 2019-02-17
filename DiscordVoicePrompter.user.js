@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Discord Voice Prompter
 // @namespace    http://tampermonkey.net/
-// @version      1.6.2
+// @version      1.6.3
 // @description  Adds a prompt when trying to enter a voice channel
 // @author       RB
 // @match        https://discordapp.com/*
@@ -114,11 +114,11 @@ function setUpGuild() {
     }
     //Handles scrolling down a channel list
     var timer = null;
-    document.getElementsByClassName("scroller-2FKFPG")[0].addEventListener("scroll", function(){
+    document.getElementsByClassName("scroller-2FKFPG")[1].addEventListener("scroll", function(){
          if(timer !== null) {clearTimeout(timer);}
          timer = setTimeout(function() {
              setTimeout(addObscurity,150);
-             if (document.getElementsByClassName("containerDefault-1bbItS")[0]){setUpContainers();}
+             if (document.getElementsByClassName("containerDefault-3GGEv_")[0]){setUpContainers();}
          }, 150);
     }, false);
 }
