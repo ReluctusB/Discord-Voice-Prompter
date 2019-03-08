@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Discord Voice Prompter
 // @namespace    http://tampermonkey.net/
-// @version      1.6.4
+// @version      1.6.5
 // @description  Adds a prompt when trying to enter a voice channel
 // @author       RB
 // @match        https://discordapp.com/*
@@ -125,7 +125,7 @@ function setUpGuild() {
 
 //Calls initial setUpGuild and adds click event to call setUpGuild on guilds.
 window.addEventListener("load", function loadLoop() {
-    if (document.getElementsByClassName('guild-1EfMGQ')[1]){
+    if (document.getElementsByClassName('container-2td-dC')[1]){
         console.log("Help");
         setUpGuild();
         var buildGuild = function() {
